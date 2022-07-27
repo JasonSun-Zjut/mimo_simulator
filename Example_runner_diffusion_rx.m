@@ -9,7 +9,7 @@ ts                   = 1;
 fprintf(1, '\n################# Single Emission  Scenario Parameters  ############');
 fprintf(1, '\n################# Tx2 Parameters  ############');
 % Prepare Variables
-emission_pt = [0 0 0];
+emission_pt = [0 0 0]; 
 receiver_pt = [[6 0 0];[6 -5 0]];
 dist_inMicroMeters = 5;
 %dist_inMicroMeters, emission_pt, receiver_pt, r_r, D, D_tx, D_rx, delta_t, molecules_perTs, ts_inSeconds, tss_inSeconds, symbol_probs, nsym, replication%
@@ -46,7 +46,7 @@ plot(tao(1:end), m_2_avg(1:end), '-k', 'LineWidth', 1)
 end
 
 function [res] = runner_diffusion_rx(tx_node, rx_node, env_params, sim_params)
-tx_sym_matrix              = repmat([1,1], sim_params.replication, 1);
+tx_sym_matrix              = repmat([1,0], sim_params.replication, 1);
 
 tx_node.mod                = 0; %% BCSK (pulse)
 rx_node.demod              = tx_node.mod;
