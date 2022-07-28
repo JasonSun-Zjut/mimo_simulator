@@ -17,14 +17,14 @@ dist_inMicroMeters = 5;
 % Run 
 res_Signal = runner_diffusion_rx( tx_node, rx_node, env_params, sim_params);
 % Plot Arrival Rate
-signal_resolution_merge = 2;
+signal_resolution_merge = 1;
 x_time = (delta_t*signal_resolution_merge):(delta_t*signal_resolution_merge):2;
-y_1_signal_avg = sum(reshape( res_Signal.nRx_1_avg, signal_resolution_merge, size(res_Signal.nRx_1_avg,2)/signal_resolution_merge));
-y_2_signal_avg = sum(reshape( res_Signal.nRx_2_avg, signal_resolution_merge, size(res_Signal.nRx_2_avg,2)/signal_resolution_merge));
+%y_1_signal_avg = sum(reshape( res_Signal.nRx_1_avg, signal_resolution_merge, size(res_Signal.nRx_1_avg,2)/signal_resolution_merge));
+%y_2_signal_avg = sum(reshape( res_Signal.nRx_2_avg, signal_resolution_merge, size(res_Signal.nRx_2_avg,2)/signal_resolution_merge));
 figure(1);
-plot(x_time(1:end), y_1_signal_avg(1:end), '--r', 'LineWidth', 2)
+plot(x_time(1:end), res_Signal.nRx_1_avg(1:end), '--r', 'LineWidth', 2)
 hold on
-plot(x_time(1:end), y_2_signal_avg(1:end), '--g', 'LineWidth', 2)
+plot(x_time(1:end), res_Signal.nRx_2_avg(1:end), '--g', 'LineWidth', 2)
 
 %% Analytical
 r_r = 1;
@@ -34,15 +34,15 @@ D_rx = 30;
 r_1_0 = norm(receiver_pt(1,:) - emission_pt);
 r_2_0 = norm(receiver_pt(2,:) - emission_pt);
 %relative time of observation for a fixed value of t
-tao = 1e-10:delta_t:2;
+tao = (delta_t*signal_resolution_merge):delta_t:2;
 m_1 = num_molecules_to_emit*Vobs.*exp(-r_1_0^2./(4*(D+D_rx).*tao))./(4*pi*(D+D_rx).*tao).^(3/2);
 m_2 = num_molecules_to_emit*Vobs.*exp(-r_2_0^2./(4*(D+D_rx).*tao))./(4*pi*(D+D_rx).*tao).^(3/2);
-tao = 1e-10:(delta_t*signal_resolution_merge):2;
-m_1_avg = sum(reshape( m_1, signal_resolution_merge, size(m_1,2)/signal_resolution_merge));
-m_2_avg = sum(reshape( m_2, signal_resolution_merge, size(m_2,2)/signal_resolution_merge));
+%tao = 1e-10:(delta_t*signal_resolution_merge):2;
+%m_1_avg = sum(reshape( m_1, signal_resolution_merge, size(m_1,2)/signal_resolution_merge));
+%m_2_avg = sum(reshape( m_2, signal_resolution_merge, size(m_2,2)/signal_resolution_merge));
 figure(1)
-plot(tao(1:end), m_1_avg(1:end), '-b', 'LineWidth', 1)
-plot(tao(1:end), m_2_avg(1:end), '-k', 'LineWidth', 1)
+plot(tao(1:end), m_1(1:end), '-b', 'LineWidth', 1)
+plot(tao(1:end), m_2(1:end), '-k', 'LineWidth', 1)
 end
 
 function [res] = runner_diffusion_rx(tx_node, rx_node, env_params, sim_params)
