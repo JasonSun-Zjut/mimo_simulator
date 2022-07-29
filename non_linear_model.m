@@ -25,11 +25,8 @@ hold on;
 plot(X(1:end), y_2(1:end), '-b', 'LineWidth', 2);
 model_f_Rx_1 = @(b,x)b(1)*V_rx.*exp(-d_tx_rx_1^2./((4*D1)^b(2).*x.^b(3)))./((4*pi*D1)^(3/2).*x.^b(4));
 model_f_Rx_2 = @(b,x)b(1)*V_rx.*exp(-d_tx_rx_2^2./((4*D1)^b(2).*x.^b(3)))./((4*pi*D1)^(3/2).*x.^b(4));
-b_init = zeros(1,4);
-b_init(1) = 1;
-b_init(2) = 1;
-b_init(3) = 1.01;
-b_init(4) = 1.02;
+% r = a + (b-a).*rand(N,1)
+b_init = 1 + (2-1).*rand(4,1);
 Rx_1_mdl = fitnlm(X,y_1,model_f_Rx_1,b_init);
 Rx_2_mdl = fitnlm(X,y_2,model_f_Rx_2,b_init);
 b_Rx_1 = Rx_1_mdl.Coefficients.Estimate;
