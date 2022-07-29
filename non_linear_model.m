@@ -40,23 +40,23 @@ Rx_1_mdl = fitnlm(X,y_1,model_f_Rx_1,b_init);
 Rx_2_mdl = fitnlm(X,y_2,model_f_Rx_2,b_init);
 b_Rx_1 = Rx_1_mdl.Coefficients.Estimate;
 b_Rx_2 = Rx_2_mdl.Coefficients.Estimate;
-fprintf(1, '\n################# TX_1----RX_1 fitted parameter ############\n');
+fprintf(1, '\n############ mobiled TX_1----RX_1 fitted parameter ############\n');
 disp(b_Rx_1(:,1));
-fprintf(1, '\n################# TX_1----RX_2 fitted parameter ############\n');
+fprintf(1, '\n############ mobiled TX_1----RX_2 fitted parameter ############\n');
 disp(b_Rx_2(:,1));
 
 
 %% no mobile fitted
-%{
+
 load molecules_data_no_mobile.mat;
 X = time;
 y_1 = cumsum(nRx_1_avg);
 y_2 = cumsum(nRx_2_avg);
 y_1 = y_1./5000;
 y_2 = y_2./5000;
-plot(X(1:end), y_1(1:end), '-g', 'LineWidth', 2);
+plot(X(1:end), nRx_1_avg(1:end), '-r', 'LineWidth', 2);
 hold on;
-plot(X(1:end), y_2(1:end), '-b', 'LineWidth', 2);
+plot(X(1:end), nRx_2_avg(1:end), '-k', 'LineWidth', 2);
 model_f_Rx_1 = @(b,x)erfc(d_tx_rx_1./((4*diffusion_molecules)^b(2).*(x).^b(3))).*b(1).*r_r./(d_tx_rx_1+r_r);
 model_f_Rx_2 = @(b,x)erfc(d_tx_rx_2./((4*diffusion_molecules)^b(2).*(x).^b(3))).*b(1).*r_r./(d_tx_rx_2+r_r);
 b_init = 0 + (1-0).*rand(3,1);
@@ -64,9 +64,9 @@ Rx_1_mdl = fitnlm(X,y_1,model_f_Rx_1,b_init);
 Rx_2_mdl = fitnlm(X,y_2,model_f_Rx_2,b_init);
 b_Rx_1 = Rx_1_mdl.Coefficients.Estimate;
 b_Rx_2 = Rx_2_mdl.Coefficients.Estimate;
-fprintf(1, '\n################# TX_1----RX_1 fitted parameter ############\n');
+fprintf(1, '\n########### fixed TX_1----RX_1 fitted parameter ############\n');
 disp(b_Rx_1(:,1));
-fprintf(1, '\n################# TX_1----RX_2 fitted parameter ############\n');
+fprintf(1, '\n########### fixed TX_1----RX_2 fitted parameter ############\n');
 disp(b_Rx_2(:,1));
-%}
+
 end
