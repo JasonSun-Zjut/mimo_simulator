@@ -13,7 +13,7 @@ emission_pt = [0 0 0];
 receiver_pt = [[8 0 0];[8 -9 0]];
 dist_inMicroMeters = 4;
 %dist_inMicroMeters, emission_pt, receiver_pt, r_r, D, D_tx, D_rx, delta_t, molecules_perTs, ts_inSeconds, tss_inSeconds, symbol_probs, nsym, replication%
-[tx_node, rx_node, env_params, sim_params] = prepare_vars4_diffusion_runners_PointSrc(dist_inMicroMeters, emission_pt, receiver_pt, 4, 50, 0, 0, delta_t, num_molecules_to_emit, ts, 0.001, [0.5 0.5], nsym, 500);
+[tx_node, rx_node, env_params, sim_params] = prepare_vars4_diffusion_runners_PointSrc(dist_inMicroMeters, emission_pt, receiver_pt, 4, 50, 10, 10, delta_t, num_molecules_to_emit, ts, 0.001, [0.5 0.5], nsym, 500);
 % Run 
 res_Signal = runner_diffusion_rx( tx_node, rx_node, env_params, sim_params);
 % Plot Arrival Rate
