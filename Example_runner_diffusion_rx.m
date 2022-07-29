@@ -2,7 +2,7 @@ function [ res_Signal] = Example_runner_diffusion_rx()
 fprintf(1, '\n################# Single Emission  Scenario Parameters  ############');
 delta_t              = 0.001;
 fprintf(1,'\n ## delta_t = %f s', delta_t);
-num_molecules_to_emit = 2000;
+num_molecules_to_emit = 5000;
 fprintf(1,'\n ## Num. Emitted Molecules = %d ', num_molecules_to_emit);
 nsym                 = 1;
 ts                   = 1;
@@ -10,10 +10,10 @@ fprintf(1, '\n################# Single Emission  Scenario Parameters  ##########
 fprintf(1, '\n################# Tx2 Parameters  ############');
 % Prepare Variables
 emission_pt = [0 0 0]; 
-receiver_pt = [[6 0 0];[6 -5 0]];
-dist_inMicroMeters = 5;
+receiver_pt = [[8 0 0];[8 -9 0]];
+dist_inMicroMeters = 4;
 %dist_inMicroMeters, emission_pt, receiver_pt, r_r, D, D_tx, D_rx, delta_t, molecules_perTs, ts_inSeconds, tss_inSeconds, symbol_probs, nsym, replication%
-[tx_node, rx_node, env_params, sim_params] = prepare_vars4_diffusion_runners_PointSrc(dist_inMicroMeters, emission_pt, receiver_pt, 1, 100, 30, 30, delta_t, num_molecules_to_emit, ts, 0.001, [0.5 0.5], nsym, 1000);
+[tx_node, rx_node, env_params, sim_params] = prepare_vars4_diffusion_runners_PointSrc(dist_inMicroMeters, emission_pt, receiver_pt, 4, 50, 0, 0, delta_t, num_molecules_to_emit, ts, 0.001, [0.5 0.5], nsym, 500);
 % Run 
 res_Signal = runner_diffusion_rx( tx_node, rx_node, env_params, sim_params);
 % Plot Arrival Rate
@@ -27,6 +27,7 @@ hold on
 plot(x_time(1:end), res_Signal.nRx_2_avg(1:end), '--g', 'LineWidth', 2)
 
 %% Analytical
+%{
 r_r = 1;
 Vobs = 4*pi*r_r^3/3;
 D = 100;
@@ -43,6 +44,7 @@ m_2 = num_molecules_to_emit*Vobs.*exp(-r_2_0^2./(4*(D+D_rx).*tao))./(4*pi*(D+D_r
 figure(1)
 plot(tao(1:end), m_1(1:end), '-b', 'LineWidth', 1)
 plot(tao(1:end), m_2(1:end), '-k', 'LineWidth', 1)
+%}
 end
 
 function [res] = runner_diffusion_rx(tx_node, rx_node, env_params, sim_params)

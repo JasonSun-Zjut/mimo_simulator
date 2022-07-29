@@ -60,7 +60,7 @@ if (p_react == 1)
 elseif (p_react == 2)
    [ nRx_wout_noise, n_destroy ] = imperfect_absorption(tx_timeline, mol_type_cnt, tx_node, rx_node, env_params, sim_params );
 else
-   [ nRx_wout_noise, n_destroy ] = mobile_perfect_absorption(tx_timeline, mol_type_cnt, tx_node, rx_node, env_params, sim_params );
+   [ nRx_wout_noise, n_destroy ] = passive(tx_timeline, mol_type_cnt, tx_node, rx_node, env_params, sim_params );
 end
 
 end
@@ -69,7 +69,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% different receiver model (passive, perfect_absorb, partical_absorb)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [ n_Rx_wout_noise, n_destroy ] = mobile_perfect_absorption( ...
+function [ n_Rx_wout_noise, n_destroy ] = mobile_perfect_( ...
    tx_timeline, ...% Symbol sequence to modulate and transmit
    mol_type_cnt, ...
    tx_node,    ...% Tx node properties
