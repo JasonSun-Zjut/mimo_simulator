@@ -107,8 +107,6 @@ n_Rx_2_wout_noise = zeros (mol_type_cnt, sim_step_cnt);
 n_destroy = zeros (1, sim_step_cnt);
 % mol released from tx_1
 mol_position1 = zeros(0,3);
-% mol released from tx_2
-mol_position  = zeros(0,3);
 mol_type1 = ones(0,1);
 for t=1:sim_step_cnt
    % Check for Emission for EACH MOL_TYPE
@@ -155,6 +153,8 @@ for t=1:sim_step_cnt
         n_Rx_1_wout_noise(ii, t) = n_Rx_1_wout_noise(ii, t) + nnz(~outside_membrane_mask_1 & mol_type_mask(:,ii));
         n_Rx_2_wout_noise(ii, t) = n_Rx_2_wout_noise(ii, t) + nnz(~outside_membrane_mask_2 & mol_type_mask(:,ii));
     end
+    mol_position2 = mol_position2(outside_membrane_mask_1 & outside_membrane_mask_2, :);
+    mol_type1 = mol_type1(outside_membrane_mask_1 & outside_membrane_mask_2);
     mol_position1 = mol_position2;
 end
     n_Rx_wout_noise = [n_Rx_1_wout_noise, n_Rx_2_wout_noise];
