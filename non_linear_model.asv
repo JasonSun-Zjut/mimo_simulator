@@ -68,7 +68,7 @@ fprintf(1, '\n########### fixed TX_1----RX_1 fitted parameter ############\n');
 disp(b_Rx_1(:,1));
 fprintf(1, '\n########### fixed TX_1----RX_2 fitted parameter ############\n');
 disp(b_Rx_2(:,1));
-fitted_Rx_1 = 5000*erfc(d_tx_rx_1./((4*diffusion_molecules)^b_Rx_1(2).*(X).^b_Rx_1(3))).*b_Rx_1(1).*r_r./(d_tx_rx_1+r_r);
-fitted_Rx_2 = 5000*erfc(d_tx_rx_2./((4*diffusion_molecules)^b_Rx_2(2).*(X).^b_Rx_2(3))).*b_Rx_2(1).*r_r./(d_tx_rx_2+r_r);
-plot(X(1:end), nRx_1(1:end), '-r', X(1:end), nRx_2(1:end), '-k', X(1:end-1), diff(fitted_Rx_1),'-k', X(1:end-1),diff(fitted_Rx_2),'-w', 'LineWidth', 2);
+fitted_Rx_1 = 5000*erfc(d_tx_rx_1./((4*diffusion_molecules)^b(2).*(x).^b(3))).*b(1).*r_r./(d_tx_rx_1+r_r);
+fitted_Rx_2 = 5000*b_Rx_2(1,1)*V_rx.*erfc(d_tx_rx_2./((4*D2)^b_Rx_2(2,1).*(D1/D2.*X).^b_Rx_2(3,1)))./(4*pi*D2*d_tx_rx_2);
+plot(X(1:end), nRx_1(1:end), '-r', X(1:end), nRx_2(1:end), '-k', 'LineWidth', 2);
 end
