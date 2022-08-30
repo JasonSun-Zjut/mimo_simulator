@@ -19,7 +19,7 @@ D = 100;
 D_rx = 100;
 r_r = 1;
 %dist, emission_pt, r_r, D, D_rx, delta_t, molecules_perTs, ts_inSeconds, tss_inSeconds, symbol_probs, nsym, replication%
-[tx_node, rx_node, env_params, sim_params] = prepare_vars4runners_PointSrc(dist_inMicroMeters, emission_pt, r_r, D, D_rx, delta_t, num_molecules_to_emit, ts, 0.001, [0.5 0.5], nsym, 1000);
+[tx_node, rx_node, env_params, sim_params] = prepare_vars4runners_PointSrc(dist_inMicroMeters, emission_pt, r_r, D, D_rx, delta_t, num_molecules_to_emit, ts, 0.001, [0.5 0.5], nsym, 100);
 
 % Run 
 res_Signal = runner_00_SingleBurst( tx_node, rx_node, env_params, sim_params);
@@ -76,7 +76,7 @@ end
 
 
 function [res] = runner_00_SingleBurst(tx_node, rx_node, env_params, sim_params)
-tx_sym_matrix              = repmat([1,0], sim_params.replication, 1);
+tx_sym_matrix              = repmat([1,1], sim_params.replication, 1);
 
 tx_node.mod                = 0; %% BCSK (pulse)
 rx_node.demod              = tx_node.mod;
