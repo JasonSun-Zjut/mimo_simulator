@@ -9,6 +9,7 @@ y = point(2)  : point(2) + step;
 distance_vector = sqrt((X-point(1)).^2 + (Y-point(2)).^2);
 [row, col] = find(distance_vector == distance);
 % 符合条件的坐标
-coordiante_vecotr = [x(row)',y(col)'];
-coordinate = coordiante_vecotr(size(coordiante_vecotr,1)-1,1:end);
+coordiante_vector = [x(row)',y(col)'];
+% 选取偏中间符合要求的坐标，避免只在x-axis 和 y-axis上
+coordinate = coordiante_vector(size(coordiante_vector,1)-1,1:end);
 end
