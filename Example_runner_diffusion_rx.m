@@ -18,7 +18,7 @@ emission_pt = coordinate_vector(1,:);
 receiver_pt = [coordinate_vector(2,:);coordinate_vector(3,:)];
 dist_inMicroMeters = norm(receiver_pt(1,:)-emission_pt)-r;
 %dist_inMicroMeters, emission_pt, receiver_pt, r_r, D, D_tx, D_rx, delta_t, molecules_perTs, ts_inSeconds, tss_inSeconds, symbol_probs, nsym, replication%
-[tx_node, rx_node, env_params, sim_params] = prepare_vars4_diffusion_runners_PointSrc(dist_inMicroMeters, emission_pt, receiver_pt, r, diffusion_coefficient(1), diffusion_coefficient(2), diffusion_coefficient(3), delta_t, num_molecules_to_emit, ts, 0.001, [0.5 0.5], nsym, 200);
+[tx_node, rx_node, env_params, sim_params] = prepare_vars4_diffusion_runners_PointSrc(dist_inMicroMeters, emission_pt, receiver_pt, r, diffusion_coefficient(1), diffusion_coefficient(2), diffusion_coefficient(3), delta_t, num_molecules_to_emit, ts, 0.001, [0.5 0.5], nsym, 50);
 % Run 
 res_Signal = runner_diffusion_rx(n, tx_node, rx_node, env_params, sim_params);
 signal_resolution_merge = 1;
