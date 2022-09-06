@@ -12,9 +12,15 @@ function [x, fval] = fminsearch_util(distance, n, molecule_allocated, r, diffusi
 
 %% Numberial analytical
 history = [];
-options = optimset('OutputFcn', @output);
-[~, fval] = fminsearch(@BER,molecule_allocated, options);
-x = history(end - 1,1:end);
+A = [];
+b = [];
+Aeq = [];
+beq = [];
+lb = [molecule_low_bound, molecule_low_bound];
+ub = [molecule_upper_bound, molecule_upper_bound];
+%options = optimset('OutputFcn', @output);
+[x, fval] = fmincon(@BER,molecule_allocated, A, b, Aeq, beq, lb, ub);
+%x = history(end - 1,1:end);
 % construct data set
 function Pe = BER(molecule_allocated)
         % molecule_allocated: 围绕初始点寻找是否存在局部极小值
@@ -35,6 +41,7 @@ function Pe = BER(molecule_allocated)
         fprintf(1, '\n############ Pe ############\n');
         disp(Pe);
 end
+%{
 function stop = output(x, optimvalues, state)
         stop = false;
         if(any(x(:)>molecule_upper_bound)||any(x(:)<molecule_low_bound))
@@ -44,4 +51,5 @@ function stop = output(x, optimvalues, state)
           history = [history; x];
         end
 end
+%}
 end
