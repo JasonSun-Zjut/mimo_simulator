@@ -18,7 +18,7 @@ emission_pt = coordinate_vector(1,:);
 receiver_pt = [coordinate_vector(2,:);coordinate_vector(3,:)];
 dist_inMicroMeters = norm(receiver_pt(1,:)-emission_pt)-r;
 %dist_inMicroMeters, emission_pt, receiver_pt, r_r, D, D_tx, D_rx, delta_t, molecules_perTs, ts_inSeconds, tss_inSeconds, symbol_probs, nsym, replication%
-[tx_node, rx_node, env_params, sim_params] = prepare_vars4_diffusion_runners_PointSrc(dist_inMicroMeters, emission_pt, receiver_pt, r, diffusion_coefficient(1), diffusion_coefficient(2), diffusion_coefficient(3), delta_t, num_molecules_to_emit, ts, 0.001, [0.5 0.5], nsym, 50);
+[tx_node, rx_node, env_params, sim_params] = prepare_vars4_diffusion_runners_PointSrc(dist_inMicroMeters, emission_pt, receiver_pt, r, diffusion_coefficient(1), diffusion_coefficient(2), diffusion_coefficient(3), delta_t, num_molecules_to_emit, ts, 0.001, [0.5 0.5], nsym, 300);
 % Run 
 res_Signal = runner_diffusion_rx(n, tx_node, rx_node, env_params, sim_params);
 signal_resolution_merge = 1;
@@ -38,8 +38,8 @@ model_f_Rx_2 = @(b,x)b(1)*V_rx.*erfc(d_tx_rx_2./((4*D2)^b(2).*(D1/D2.*x+(n-1)*ts
 b_init = 0.5 + (1-0.5).*rand(3,1);
 Rx_1_mdl = fitnlm(x_time(1:end),y_1(1:end),model_f_Rx_1,b_init);
 Rx_2_mdl = fitnlm(x_time(1:end),y_2(1:end),model_f_Rx_2,b_init);
-b_Rx_1 = Rx_1_mdl.Coefficients.Estimate;
-b_Rx_2 = Rx_2_mdl.Coefficients.Estimate;
+b_Rx_1 = round(Rx_1_mdl.Coefficients.Estimate, 3);
+b_Rx_2 = round(Rx_2_mdl.Coefficients.Estimate, 3);
 fprintf(1, '\n############ Tx 在 %dth time slot: mobiled TX_1----RX_1 fitted parameter ############\n', n);
 disp(b_Rx_1(:,1));
 fprintf(1, '\n############ Tx 在 %dth time slot: mobiled TX_1----RX_2 fitted parameter ############\n', n);
