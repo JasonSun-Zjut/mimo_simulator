@@ -23,11 +23,13 @@ function Pe = BER(molecule_allocated)
         mu_0 = 0;
         for k = 1:1:n-1
         %[Rx1_estimate_coefficient, Rx2_estimate_coefficient] = Example_runner_diffusion_rx(k, NA, coordinate_vector, r, diffusion_coefficient);
-        probability_function = probability_mobile(estimate_coefficient(k, 1:3)', estimate_coefficient(k, 4:end)', r, diffusion_coefficient, (k-1)*T,(n-k)*T+tau,distance);
-            mu_0 = mu_0 + 0.5 * molecule_allocated(1) * probability_function(1) +  0.5 * molecule_allocated(2) * probability_function(2);
+        probability_function = probability_mobile(estimate_coefficient(1:end, 1), estimate_coefficient(1:end, 2), r, diffusion_coefficient, (k-1)*T,(n-k)*T+tau,distance);
+        %probability_function = probability_mobile(estimate_coefficient(k, 1:3)', estimate_coefficient(k, 4:end)', r, diffusion_coefficient, (k-1)*T,(n-k)*T+tau,distance);
+        mu_0 = mu_0 + 0.5 * molecule_allocated(1) * probability_function(1) +  0.5 * molecule_allocated(2) * probability_function(2);
         end
         %[Rx1_estimate_coefficient, Rx2_estimate_coefficient] = Example_runner_diffusion_rx(n, NA, coordinate_vector, r, diffusion_coefficient);
-        probability_function = probability_mobile(estimate_coefficient(n, 1:3)', estimate_coefficient(n, 4:end)', r, diffusion_coefficient, (n-1)*T, tau, distance);
+        probability_function = probability_mobile(estimate_coefficient(1:end, 1), estimate_coefficient(1:end, 2), r, diffusion_coefficient, (n-1)*T, tau, distance);
+        %probability_function = probability_mobile(estimate_coefficient(n, 1:3)', estimate_coefficient(n, 4:end)', r, diffusion_coefficient, (n-1)*T, tau, distance);
         mu_0 = 0.5 * molecule_allocated(2) * probability_function(2);
         %% Tx_1 transmit bit 0
         mu_1 = mu_0 + molecule_allocated(1) * probability_function(1);
